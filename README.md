@@ -19,7 +19,7 @@
 ## Установка
 
 1. Установите [Tampermonkey](https://www.tampermonkey.net/).
-2. Откройте файл [`4PDA-Forum-Dark.user.js`](https://raw.githubusercontent.com/BoiiScout/4pda-forum-dark/main/4PDA-Forum-Dark.user.js).
+2. Откройте файл [`4PDA-Forum-Dark.user.js`](https://raw.githubusercontent.com/bxm0q/4pda-forum-dark/main/4PDA-Forum-Dark.user.js).
 3. Tampermonkey предложит установить скрипт.
 4. После установки обновите страницу форума 4PDA.
 
@@ -36,8 +36,8 @@
 
 ## Ошибки и предложения
 
-Если какой-то элемент форума остался светлым или выглядит неправильно, создайте [Issue](https://github.com/BoiiScout/4pda-forum-dark/issues) и приложите скриншот страницы.
+Если какой-то элемент форума остался светлым или выглядит неправильно, создайте [Issue](https://github.com/bxm0q/4pda-forum-dark/issues) и приложите скриншот страницы.
 
 ## Версия
 
-Текущая версия: **1.6**
+Текущая версия: **1.7**
