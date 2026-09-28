@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         4PDA Forum Dark
 // @namespace    4pda-forum-dark
-// @version      1.7
+// @version      1.8
 // @description  Тёмная тема для форума 4PDA
 // @homepageURL  https://github.com/bxm0q/4pda-forum-dark
 // @supportURL   https://github.com/bxm0q/4pda-forum-dark/issues
@@ -303,48 +303,71 @@
             border-color: var(--border) !important;
         }
 
-        .pda-profile-page #header + div {
-            background: var(--bg) !important;
+        .pda-profile-page form[action*="showuser"] {
             color: var(--text) !important;
         }
 
-        .pda-profile-page .user-profile-list,
-        .pda-profile-page .pp-contentbox-back,
-        .pda-profile-page .pp-contentbox-entry,
-        .pda-profile-page .pp-contentbox-entry-noheight,
-        .pda-profile-page .pp-contentbox-entry-noheight-mod,
-        .pda-profile-page .pp-contentbox-entry-noheight-sel,
-        .pda-profile-page .pp-mini-content-entry,
-        .pda-profile-page .pp-mini-content-entry-noheight,
-        .pda-profile-page .pp-mini-entry-noheight-shaded,
-        .pda-profile-page .pp-datebox,
-        .pda-profile-page .u-note,
-        .pda-profile-page #contacts,
-        .pda-profile-page #events-list {
+        .pda-profile-page form[action*="showuser"] > ul {
+            background: transparent !important;
+        }
+
+        .pda-profile-page form[action*="showuser"] > ul > li:not(.margin-block) {
             background: var(--bg2) !important;
             color: var(--text) !important;
             border-color: var(--border) !important;
+            box-shadow: none !important;
         }
 
-        .pda-profile-page .pp-title,
-        .pda-profile-page .pp-header,
-        .pda-profile-page .pp-taboff,
-        .pda-profile-page .pp-tabon,
-        .pda-profile-page .pp-tabclear,
-        .pda-profile-page .pp-tabshaded {
-            background: var(--bg3) !important;
-            color: var(--text) !important;
+        .pda-profile-page form[action*="showuser"] > ul > li.margin-block {
+            background: transparent !important;
+        }
+
+        .pda-profile-page form[action*="showuser"] .user-box,
+        .pda-profile-page form[action*="showuser"] .heading,
+        .pda-profile-page form[action*="showuser"] .statistic-box,
+        .pda-profile-page form[action*="showuser"] .contact-social,
+        .pda-profile-page form[action*="showuser"] .profile-edit-links,
+        .pda-profile-page form[action*="showuser"] .info-list,
+        .pda-profile-page form[action*="showuser"] .alert-log-list {
+            background: transparent !important;
             border-color: var(--border) !important;
         }
 
-        .pda-profile-page .profile-textarea {
+        .pda-profile-page form[action*="showuser"] .heading {
+            border-bottom-color: var(--border) !important;
+        }
+
+        .pda-profile-page form[action*="showuser"] .user-box h1,
+        .pda-profile-page form[action*="showuser"] .heading h2,
+        .pda-profile-page form[action*="showuser"] h3 {
+            color: var(--text) !important;
+        }
+
+        .pda-profile-page form[action*="showuser"] .info-list .title,
+        .pda-profile-page form[action*="showuser"] .profile-edit-links,
+        .pda-profile-page form[action*="showuser"] .u-note {
+            color: var(--muted) !important;
+        }
+
+        .pda-profile-page form[action*="showuser"] .info-list .area,
+        .pda-profile-page form[action*="showuser"] .statistic-box,
+        .pda-profile-page form[action*="showuser"] .contact-social {
+            color: var(--text) !important;
+        }
+
+        .pda-profile-page form[action*="showuser"] .u-note {
+            background: var(--bg3) !important;
+            border-color: var(--border) !important;
+        }
+
+        .pda-profile-page form[action*="showuser"] .profile-textarea {
             background: #1d232a !important;
             color: var(--text) !important;
             border: 1px solid var(--border) !important;
         }
 
-        .pda-profile-page .user-profile-list .margin-block {
-            background: transparent !important;
+        .pda-profile-page form[action*="showuser"] .profile-textarea::placeholder {
+            color: var(--muted) !important;
         }
 
         #footer,
@@ -448,27 +471,23 @@
     function fixProfile() {
         if (!isProfilePage) return;
 
-        const root = document.querySelector('#header + div');
-        if (!root) return;
+        const form = document.querySelector('form[action*="showuser"]');
+        if (!form) return;
 
-        root.style.setProperty('background', '#0f1216', 'important');
-        root.style.setProperty('color', '#d8dee6', 'important');
+        const list = form.querySelector(':scope > ul');
+        if (!list) return;
 
-        root.querySelectorAll('div, section, article, aside, ul, li, table, tbody, tr, td, form').forEach(el => {
-            const style = getComputedStyle(el);
-            const match = style.backgroundColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        list.style.setProperty('background', 'transparent', 'important');
 
-            if (!match) return;
-
-            const r = Number(match[1]);
-            const g = Number(match[2]);
-            const b = Number(match[3]);
-
-            if (r >= 225 && g >= 225 && b >= 225) {
-                el.style.setProperty('background-color', '#15191e', 'important');
-                el.style.setProperty('color', '#d8dee6', 'important');
-                el.style.setProperty('border-color', '#313943', 'important');
+        Array.from(list.children).forEach(card => {
+            if (card.classList.contains('margin-block')) {
+                card.style.setProperty('background', 'transparent', 'important');
+                return;
             }
+
+            card.style.setProperty('background', '#15191e', 'important');
+            card.style.setProperty('color', '#d8dee6', 'important');
+            card.style.setProperty('border-color', '#313943', 'important');
         });
     }
 
